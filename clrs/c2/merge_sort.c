@@ -12,17 +12,15 @@ void merge(int a[], int l, int m, int r) {
 	int L[lsize], R[rsize];
 	arrayCopy(a, l, L, 0, lsize);
 	arrayCopy(a, m+1, R, 0, rsize);
-	displayArray(L, lsize);
-	displayArray(R, rsize);
 
-	int i, j = 0; int k = l;
+	int i = 0, j = 0, k = l;
 	while (i < lsize && j < rsize) {
-		if (L[i] > R[j]) {
-			a[k] = R[j];
-			j++;
-		} else {
+		if (L[i] <= R[j]) {
 			a[k] = L[i];
 			i++;
+		} else {
+			a[k] = R[j];
+			j++;
 		}
 		k++;
 	}
@@ -47,12 +45,10 @@ void mergeSort(int a[], int start, int end) {
 
 int main() {
     const int SIZE = 9;
-    // int a[9] = {10, 2, 8, 3, 7, 27, 5, 6, 9};
-    int a[SIZE] = {2, 9, 10, 12, 3, 4, 6, 15, 17};
+    int a[9] = {10, 2, 8, 3, 7, 27, 5, 6, 9};
     printf("BEFORE SORTING:\n");
     displayArray(a, SIZE);
-    // mergeSort(a, 0, SIZE-1);
-    merge(a, 0, 3, 8);
+    mergeSort(a, 0, SIZE-1);
     printf("AFTER SORTING:\n");
     displayArray(a, SIZE);
     if (isSorted(a, SIZE)) {
