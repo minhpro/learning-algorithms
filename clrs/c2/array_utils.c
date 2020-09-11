@@ -23,3 +23,12 @@ void arrayCopy(int a[], int sa, int b[], int sb, int len) {
         b[sb+i] = a[sa+i];
     }
 }
+
+bool isEqual(int a[], int b[], int len) {
+    for (int i = 0; i < len; i++) {
+        if (a[i] != b[i])
+            return false;
+    }
+
+    return true;
+}

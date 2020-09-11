@@ -33,7 +33,7 @@ public class MergeSort {
     }
 
     public static void mergeSort(int a[], int start, int end) {
-        if (start == end) {
+        if (start >= end) {
             return;
         }
 
