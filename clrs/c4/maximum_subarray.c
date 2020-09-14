@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <limits.h>
 
 typedef struct {
     int left, rigt, sum;
@@ -45,9 +46,10 @@ bool isMaxSubArrayEqual(MaxSubArray x, MaxSubArray y) {
 }
 
 MaxSubArray findMaxSubArray(int a[], int start, int end) {
-    MaxSubArray maxSub = {0, 0, 0};
-    if (start >= end)
+    if (start == end) {
+        MaxSubArray maxSub = {start, end, a[start]};
         return maxSub;
+    }
 
     int mid = start + (end - start) / 2;
 
@@ -67,8 +69,13 @@ MaxSubArray findMaxCrossSubArray(int a[], int left, int mid, int right) {
 }
 
 MaxSubArray findMaxSubArrayFrom(int a[], int start, int end, int direction) {
+    if (start == end) {
+        MaxSubArray maxSub = {start, end, a[start]};
+        return maxSub;
+    }
+
     int maxIndex = start;
-    int maxSum = start;
+    int maxSum = INT_MIN;
     int sum = 0;
 
     for (int i = start; i != end; i = i + direction) {
@@ -79,7 +86,11 @@ MaxSubArray findMaxSubArrayFrom(int a[], int start, int end, int direction) {
         }
     }
 
-    MaxSubArray answer = {start, maxIndex, maxSum};
+    MaxSubArray answer;
+    if (direction > 0) 
+        answer = (MaxSubArray) {start, maxIndex, maxSum}; //C99 compound literal
+    else
+        answer = (MaxSubArray) {maxIndex, start, maxSum};
     return answer;
 }
 
