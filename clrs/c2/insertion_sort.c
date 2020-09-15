@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "array_utils.h"
+#include "../array/array_utils.h"
 
 void insertionSort(int a[], int len) {
     for (int j = 1; j < len; j++) {

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "../array/array_utils.h"
+#include <memory.h>
 
 int parent(int i);
 
@@ -20,18 +22,48 @@ void exchange(int a[], int i, int j);
 
 void heapSort(int a[], int len);
 
+int heapMaximum(int a[]);
+
+int heapExtractMax(int a[], int size);
+
+void maxHeapInsert(int key, int a[], int size);
+
+void heapIncreaseKey(int i, int increase, int a[], int size);
+
 int main() {
     const int SIZE = 10;
-    int a[SIZE] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-    // buildMaxHeap(a, SIZE);
-    // if (heapVerify(a, SIZE)) {
-    //     printf("HEAP is valid\n");
-    // } else {
-    //     printf("HEAP is invalid\n");
-    // }
+    static const int test[SIZE] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
+    int a[SIZE];
+    memcpy(a, test, sizeof(test));
+    buildMaxHeap(a, SIZE);
+    if (heapVerify(a, SIZE)) {
+        printf("HEAP is valid\n");
+    } else {
+        printf("HEAP is invalid\n");
+    }
 
-    heapSort(a, SIZE);
-    
+    int b[SIZE];
+    memcpy(b, test, sizeof(test));
+    heapSort(b, SIZE);
+    displayArray(b, SIZE);
+    if (isSorted(b, SIZE)) {
+        printf("HEAP SORT OK!\n");
+    } else {
+        printf("HEAP SORT FAILED!\n");
+    }
+
+    int c[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+        maxHeapInsert(test[i], c, i);
+    }
+
+    displayArray(c, SIZE);  
+    if (heapVerify(a, SIZE)) {
+        printf("HEAP is valid\n");
+    } else {
+        printf("HEAP is invalid\n");
+    }
+
 }
 
 void heapSort(int a[], int len) {
@@ -91,4 +123,30 @@ void exchange(int a[], int i, int j) {
     int temp = a[i];
     a[i] = a[j];
     a[j] = temp;
+}
+
+int heapMaximum(int a[]) {
+    return a[0];
+}
+
+int heapExtractMax(int a[], int size) {
+    int last = size - 1;
+    exchange(a, 0, last);
+    maxHeapify(a, 0, size - 1);
+    return a[last];
+}
+
+void heapIncreaseKey(int i, int increase, int a[], int size) {
+    a[i] += increase;
+    while (i > 0 && a[i] > a[parent(i)]) {
+        exchange(a, i, parent(i));
+        i = parent(i);
+    }
+}
+
+void maxHeapInsert(int key, int a[], int size) {
+    size++;
+    int last = size - 1;
+    a[last] = key - 1;
+    heapIncreaseKey(last, 1, a, size);
 }

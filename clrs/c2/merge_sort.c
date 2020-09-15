@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "array_utils.h"
+#include "../array/array_utils.h"
 
 /*
 * Merge 2 sorted array a[l..m] and a[m+1..r]
