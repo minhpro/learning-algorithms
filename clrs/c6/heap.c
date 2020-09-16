@@ -30,6 +30,8 @@ void maxHeapInsert(int key, int a[], int size);
 
 void heapIncreaseKey(int i, int increase, int a[], int size);
 
+void heapDelete(int i, int a[], int size);
+
 int main() {
     const int SIZE = 10;
     static const int test[SIZE] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
@@ -150,3 +152,5 @@ void maxHeapInsert(int key, int a[], int size) {
     a[last] = key - 1;
     heapIncreaseKey(last, 1, a, size);
 }
+
+void heapDelete(int i, )
