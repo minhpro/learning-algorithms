@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "../array/array_utils.h"
 #include <memory.h>
+#include <limits.h>
 
 int parent(int i);
 
@@ -59,13 +60,28 @@ int main() {
         maxHeapInsert(test[i], c, i);
     }
 
-    displayArray(c, SIZE);  
     if (heapVerify(a, SIZE)) {
-        printf("HEAP is valid\n");
+        printf("HEAP INSERT OK!\n");
     } else {
-        printf("HEAP is invalid\n");
+        printf("HEAP INSERT FAIL!\n");
     }
+    displayArray(c, SIZE);  
 
+    heapDelete(0, c, SIZE);
+    if (heapVerify(c, SIZE - 1)) {
+        printf("HEAP DELETE root OK!\n");
+    } else {
+        printf("HEAP DELETE root FAILED!\n");
+    }
+    displayArray(c, SIZE - 1);
+
+    heapDelete(3, c, SIZE - 1);
+    if (heapVerify(c, SIZE - 2)) {
+        printf("HEAP DELETE OK!\n");
+    } else {
+        printf("HEAP DELETE FAILED!\n");
+    }
+    displayArray(c, SIZE - 2);
 }
 
 void heapSort(int a[], int len) {
@@ -153,4 +169,15 @@ void maxHeapInsert(int key, int a[], int size) {
     heapIncreaseKey(last, 1, a, size);
 }
 
-void heapDelete(int i, )
+void heapDelete(int i, int a[], int size) {
+    int last = size - 1;
+    exchange(a, i, last);
+    int k = i;
+    while (k > 0 && a[parent(k)] < a[k]) {
+        int p = parent(k);
+        exchange(a, k, p);
+        k = p;
+    }
+    maxHeapify(a, k, size - 1);
+}
+
