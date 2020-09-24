@@ -19,8 +19,6 @@ void maxHeapify(int a[], int i, int size);
 
 void buildMaxHeap(int a[], int len);
 
-void exchange(int a[], int i, int j);
-
 void heapSort(int a[], int len);
 
 int heapMaximum(int a[]);
@@ -135,12 +133,6 @@ bool heapVerify(int a[], int size) {
     }
 
     return true;
-}
-
-void exchange(int a[], int i, int j) {
-    int temp = a[i];
-    a[i] = a[j];
-    a[j] = temp;
 }
 
 int heapMaximum(int a[]) {
