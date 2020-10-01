@@ -38,3 +38,10 @@ void exchange(int a[], int i, int j) {
     a[i] = a[j];
     a[j] = temp;
 }
+
+void fillArray(int a[], int len, int value) {
+    for (int i = 0; i < len; i++) {
+        a[i] = value;
+    }
+}
+
